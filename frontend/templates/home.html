@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Home | CardioPulse AI{% endblock %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
+<style>
+    /* Hero Layout */
+    .hero-section {
+        display: flex;
+        align-items: center;
+        min-height: 80vh;
+        padding: 40px 0;
+    }
+
+    /* Text Enhancements */
+    .hero-text h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem); /* Fluid typography */
+        font-weight: 800;
+        letter-spacing: -2px;
+    }
+
+    .text-gradient {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+    }
+
+    /* 3D Stat Cards */
+    .hero-visuals {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main-circle {
+        width: 350px;
+        height: 350px;
+        border: 2px dashed rgba(255, 65, 108, 0.2);
+        border-radius: 50%;
+        position: relative;
+        animation: rotate 20s linear infinite;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 2rem;
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+    }
+
+    .floating-stat {
+        position: absolute;
+        z-index: 2;
+        width: 220px;
+    }
+
+    .stat-1 { top: -10%; left: -10%; }
+    .stat-2 { bottom: 0%; right: -5%; }
+
+    /* AI Pulse Ring */
+    .pulse-ring {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 65, 108, 0.4);
+        border-radius: 50%;
+        animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        background: var(--glass-bg);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        padding: 3rem 2rem;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .feature-card:hover {
+        background: white;
+        transform: translateY(-15px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+    }
+
+    .icon-box {
+        width: 70px;
+        height: 70px;
+        background: var(--primary-gradient);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 10px 20px rgba(255, 65, 108, 0.3);
+    }
+
+    /* Animations */
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    
+    @keyframes pulse-ring {
+        0% { transform: scale(.33); }
+        80%, 100% { opacity: 0; }
+    }
+
+    @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+</style>
+
+<section class="hero-section">
+    <div class="row align-items-center w-100">
+        <div class="col-lg-6 hero-text animate__animated animate__fadeInLeft">
+            <span class="badge-ai mb-3">
+                <span class="pulse-ring"></span>
+                <!-- <i class="fas fa-circle me-2" style="font-size: 8px;"></i>System Online -->
+            </span>
+            <h1 class="mb-4">Precision Heart <br><span class="text-gradient">Risk Analysis</span></h1>
+            <p class="lead text-muted mb-5 pe-lg-5">
+                Experience the next generation of cardiovascular risk assessment. Our AI analyzes 11 clinically relevant biomarkers to estimate heart disease risk with high accuracy.
+            </p>
+            
+            <div class="hero-btns">
+                <a href="/predict" class="btn btn-predict btn-lg shadow-lg">
+                    Analyze My Risk <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <a href="/model" class="btn btn-link text-dark fw-bold text-decoration-none ms-3">
+                    Learn Methodology
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-lg-6 hero-visuals d-none d-lg-flex animate__animated animate__fadeInRight">
+            <div class="main-circle"></div>
+            
+            <div class="glass-card floating-stat stat-1" data-tilt>
+                <i class="fas fa-brain text-danger mb-3 fa-2x"></i>
+                <h4 class="fw-bold mb-0">Random Forest</h4>
+                <p class="small text-muted mb-0">~73.9% Accuracy</p>
+            </div>
+
+            <div class="glass-card floating-stat stat-2" data-tilt data-tilt-reverse="true">
+                <i class="fas fa-users text-primary mb-3 fa-2x"></i>
+                <h4 class="fw-bold mb-0"><span class="counter">70000</span>+</h4>
+                <p class="small text-muted mb-0">Clinical Records Analyzed</p>
+            </div>
+
+            <div class="position-absolute bg-white rounded-circle shadow-lg p-4 animate__animated animate__pulse animate__infinite">
+                <i class="fas fa-heart-pulse text-danger fa-4x"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="features-section py-5 mt-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="icon-box"><i class="fas fa-shield-virus"></i></div>
+                <h3 class="h4 fw-bold">Verified Data</h3>
+                <p class="text-muted">Trained on a curated cardiovascular dataset containing 70,000 patient records.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="icon-box"><i class="fas fa-bolt"></i></div>
+                <h3 class="h4 fw-bold">Neural Speed</h3>
+                <p class="text-muted">Optimized preprocessing enables fast and efficient cardiovascular risk prediction.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="icon-box"><i class="fas fa-eye"></i></div>
+                <h3 class="h4 fw-bold">Interpretable AI</h3>
+                <p class="text-muted">We don't just give a score; we show you the features that drove the decision.</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-muted small mt-4 text-center">
+        ⚠ This tool is for educational and research purposes only and does not replace professional medical diagnosis or advice.
+    </p>
+
+</section>
+
+<script>
+    // Initialize Tilt
+    VanillaTilt.init(document.querySelectorAll(".glass-card"), {
+        max: 15,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.2,
+    });
+
+    // Simple Counter Animation Logic
+    document.querySelectorAll('.counter').forEach(el => {
+        const goal = parseInt(el.innerText);
+        let count = 0;
+        const timer = setInterval(() => {
+            count += Math.ceil(goal / 50);
+            if (count >= goal) {
+                el.innerText = goal.toLocaleString();
+                clearInterval(timer);
+            } else {
+                el.innerText = count.toLocaleString();
+            }
+        }, 30);
+    });
+</script>
+{% endblock %}

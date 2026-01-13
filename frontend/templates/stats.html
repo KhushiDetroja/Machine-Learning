@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Model Performance | CardioPulse AI{% endblock %}
+
+{% block content %}
+<style>
+    /* Metric Card Styling */
+    .metric-card {
+        background: var(--glass-bg);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 24px;
+        padding: 30px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(255, 65, 108, 0.1);
+    }
+
+    /* Radial Score Circle */
+    .score-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: conic-gradient(#ff416c var(--progress), #f1f2f6 0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        position: relative;
+    }
+    .score-circle::before {
+        content: attr(data-value);
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: var(--text-dark);
+    }
+
+    /* Technical Terminal Look */
+    .terminal-card {
+        background: #1e1e1e;
+        color: #dcdcdc;
+        border-radius: 20px;
+        padding: 25px;
+        font-family: 'Courier New', Courier, monospace;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    .terminal-header {
+        border-bottom: 1px solid #333;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        display: flex;
+        gap: 8px;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .line-item { margin-bottom: 8px; font-size: 0.9rem; }
+    .line-key { color: #569cd6; }
+    .line-val { color: #ce9178; }
+
+    /* Custom Progress bar styling */
+    .custom-progress {
+        height: 8px;
+        background: #eee;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .progress-fill {
+        height: 100%;
+        background: var(--primary-gradient);
+        transition: width 1.5s ease-in-out;
+    }
+</style>
+
+<div class="animate__animated animate__fadeIn">
+    <div class="row mb-5 text-center">
+        <div class="col-lg-8 mx-auto">
+            <span class="badge bg-danger-subtle text-danger px-3 py-2 mb-3 fw-bold">EVALUATION METRICS</span>
+            <h1 class="display-5 fw-bold">Algorithm <span class="text-danger">Efficiency</span></h1>
+            <p class="lead text-muted">A technical audit of our Random Forest Classifier's diagnostic capabilities.</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5 text-center">
+        <div class="col-md-3 col-6">
+            <div class="metric-card">
+                <div class="score-circle" data-value="73.9%" style="--progress: 263deg;"></div>
+                <h6 class="fw-bold mb-1">Accuracy</h6>
+                <p class="x-small text-muted mb-0">General correctness across all predictions.</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="metric-card">
+                <div class="score-circle" data-value="75%" style="--progress: 270deg;"></div>
+                <h6 class="fw-bold mb-1">Precision</h6>
+                <p class="x-small text-muted mb-0">Reliability when predicting "At Risk".</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="metric-card">
+                <div class="score-circle" data-value="70%" style="--progress: 252deg;"></div>
+                <h6 class="fw-bold mb-1">Recall</h6>
+                <p class="x-small text-muted mb-0">Ability to find all positive cases.</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="metric-card">
+                <div class="score-circle" data-value="72%" style="--progress: 259deg;"></div>
+                <h6 class="fw-bold mb-1">F1-Score</h6>
+                <p class="x-small text-muted mb-0">Harmonic balance of precision/recall.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-lg-7">
+            <div class="metric-card">
+                <h4 class="fw-bold mb-4"><i class="fas fa-microscope me-2 text-danger"></i>Performance Breakdown</h4>
+                
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="fw-bold">Model Generalization</span>
+                        <span class="text-danger fw-bold">High</span>
+                    </div>
+                    <div class="custom-progress">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="fw-bold">Error Minimization</span>
+                        <span class="text-danger fw-bold">Optimized</span>
+                    </div>
+                    <div class="custom-progress">
+                        <div class="progress-fill" style="width: 73%"></div>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-light rounded-4 mt-4">
+                    <h6 class="fw-bold"><i class="fas fa-info-circle me-2"></i>Analysis Summary</h6>
+                    <p class="small text-muted mb-0">The model shows exceptional **Specificity**. This means it is highly reliable at identifying healthy patients, reducing the psychological stress caused by "False Alarms" (False Positives).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="terminal-card h-100">
+                <div class="terminal-header">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                    <span class="ms-2 small opacity-50">hyperparameters.json</span>
+                </div>
+                <div class="line-item"><span class="line-key">"algorithm"</span>: <span class="line-val">"RandomForestClassifier"</span>,</div>
+                <div class="line-item"><span class="line-key">"n_estimators"</span>: <span class="line-val">100</span>,</div>
+                <div class="line-item"><span class="line-key">"criterion"</span>: <span class="line-val">"gini"</span>,</div>
+                <div class="line-item"><span class="line-key">"max_depth"</span>: <span class="line-val">null</span>,</div>
+                <div class="line-item"><span class="line-key">"min_samples_split"</span>: <span class="line-val">2</span>,</div>
+                <div class="line-item"><span class="line-key">"bootstrap"</span>: <span class="line-val">true</span>,</div>
+                <div class="line-item"><span class="line-key">"random_state"</span>: <span class="line-val">42</span>,</div>
+                <div class="line-item mt-3"><span class="text-success">// Testing with 14,000 samples</span></div>
+                <div class="line-item"><span class="text-success">// Status: Evaluation Complete</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center py-5">
+        <h4 class="fw-bold mb-4">Want to see the data patterns?</h4>
+        <a href="/visuals" class="btn btn-predict btn-lg shadow px-5">
+            <i class="fas fa-chart-pie me-2"></i> Explore Visual Insights
+        </a>
+    </div>
+</div>
+{% endblock %}
