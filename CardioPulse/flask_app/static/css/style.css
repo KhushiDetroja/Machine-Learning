@@ -1,0 +1,69 @@
+:root {
+    /* Light Mode */
+    --bg-color: #f8faff;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --primary: #0984e3;
+    --accent: #d63031;
+    --nav-bg: #ffffff;
+    --border: rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] {
+    --bg-color: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --primary: #38bdf8;
+    --nav-bg: #1e293b;
+    --border: rgba(255,255,255,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.3s, color 0.3s; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+.app-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 25px; background: var(--nav-bg);
+    border-radius: 15px; box-shadow: 0 10px 30px var(--border);
+    margin-bottom: 40px;
+}
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { color: var(--accent); font-size: 24px; }
+.logo span { color: var(--primary); }
+
+nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+nav a { text-decoration: none; color: var(--text-muted); font-weight: 500; }
+nav a.active { color: var(--primary); }
+
+.btn-nav { background: var(--primary); color: white !important; padding: 8px 18px; border-radius: 8px; }
+
+/* Hero Section */
+.hero-section { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; padding: 40px 0; }
+.badge { background: rgba(9, 132, 227, 0.1); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+h1 { font-size: 3.5rem; margin: 15px 0; line-height: 1.1; }
+h1 span { color: var(--primary); }
+
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 25px;
+    box-shadow: 0 15px 35px var(--border);
+}
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 50px; }
+
+.theme-btn { 
+    background: none; border: 1px solid var(--border); 
+    color: var(--text-main); cursor: pointer; padding: 10px; border-radius: 50%;
+}
